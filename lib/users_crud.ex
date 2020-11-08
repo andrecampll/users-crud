@@ -1,4 +1,8 @@
 defmodule UsersCrud do
+  alias UsersCrud.Repo, as: DB
+
+  import Ecto.Query
+
   @moduledoc """
   Documentation for `UsersCrud`.
   """
@@ -15,10 +19,6 @@ defmodule UsersCrud do
   def hello do
     :world
   end
-
-  alias UsersCrud.Repo, as: DB
-
-  import Ecto.Query
 
   def insert(first_name, last_name, email, age) do
     user = %UsersCrud.User{first_name: first_name, last_name: last_name, email: email, age: age}
