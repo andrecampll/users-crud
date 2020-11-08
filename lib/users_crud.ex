@@ -41,4 +41,16 @@ defmodule UsersCrud do
       |> order_by(desc: :inserted_at)
     )
   end
+
+  def update(iduser, data) do
+    allowed_fields = [:first_name, :last_name, :email, :age]
+
+    changes = Ecto.Changeset.cast(%UsersCrud.User{id: iduser}, data, allowed_fields)
+
+    changes |> DB.update()
+  end
+
+  def delete(iduser) do
+    %UsersCrud.User{id: iduser} |> DB.delete()
+  end
 end
