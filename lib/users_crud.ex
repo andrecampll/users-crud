@@ -25,4 +25,12 @@ defmodule UsersCrud do
 
     user |> DB.insert()
   end
+
+  def read(idUser) do
+    DB.one(
+      UsersCrud.User
+      |> select([user], user)
+      |> where([user], user.id == ^idUser)
+    )
+  end
 end
