@@ -33,4 +33,12 @@ defmodule UsersCrud do
       |> where([user], user.id == ^idUser)
     )
   end
+
+  def read do
+    DB.all(
+      UsersCrud.User
+      |> select([user], user)
+      |> order_by(desc: :inserted_at)
+    )
+  end
 end
