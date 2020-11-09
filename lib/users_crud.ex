@@ -3,37 +3,25 @@ defmodule UsersCrud do
 
   import Ecto.Query
 
-  @moduledoc """
-  Documentation for `UsersCrud`.
-  """
-
   @doc """
-  Hello world.
+  Insere um novo usuário no banco de dados.
 
-  ## Examples
+  ## Parameters
 
-      iex> UsersCrud.hello()
-      :world
-
+  - first_name: Primeiro nome do usuário.
+  - last_name: Último nome do usuário.
+  - email: E-mail do usuário.
+  - age: Idade do usuário.
   """
-  def hello do
-    :world
-  end
-
   def insert(first_name, last_name, email, age) do
     user = %UsersCrud.User{first_name: first_name, last_name: last_name, email: email, age: age}
 
     user |> DB.insert()
   end
 
-  def read(idUser) do
-    DB.one(
-      UsersCrud.User
-      |> select([user], user)
-      |> where([user], user.id == ^idUser)
-    )
-  end
-
+  @doc """
+  Retorna todos os usúarios do banco de dados.
+  """
   def read do
     DB.all(
       UsersCrud.User
@@ -42,7 +30,31 @@ defmodule UsersCrud do
     )
   end
 
+  @doc """
+  Retorna apenas um usuário do banco de dados.
+
+  ## Parameters
+
+  - id_user: ID do usuário.
+  """
+  def read(iduser) do
+    DB.one(
+      UsersCrud.User
+      |> select([user], user)
+      |> where([user], user.id == ^iduser)
+    )
+  end
+
+  @doc """
+  Atualiza os dados do usuário no banco de dados.
+
+  ## Parameters
+
+  - id_user: ID do usuário.
+  - data: Struct com os dados a serem atualizados.
+  """
   def update(iduser, data) do
+    # Campos que podem ser atualizados.
     allowed_fields = [:first_name, :last_name, :email, :age]
 
     changes = Ecto.Changeset.cast(%UsersCrud.User{id: iduser}, data, allowed_fields)
@@ -50,6 +62,13 @@ defmodule UsersCrud do
     changes |> DB.update()
   end
 
+  @doc """
+  Remove um usuário banco de dados.
+
+  ## Parameters
+
+  - id_user: ID do usuário.
+  """
   def delete(iduser) do
     %UsersCrud.User{id: iduser} |> DB.delete()
   end

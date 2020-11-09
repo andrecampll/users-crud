@@ -6,4 +6,4 @@ config :users_crud, UsersCrud.Repo,
   password: "docker",
   hostname: "localhost"
 
-  config :users_crud, ecto_repos: [UsersCrud.Repo]
+config :users_crud, ecto_repos: [UsersCrud.Repo]
